@@ -1,0 +1,9 @@
+[package]
+name = "its_all_bitboards"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+
+
