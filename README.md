@@ -20,6 +20,6 @@ Info om spelet
     Game.game_state                     Field i Game. Ger en enum av GameState
     Game.turn_number                    Field i Game. Ger en u64 som är vems tur det är
 
-    print!("{}", Game) printar ett fint bräde och alla legal moves
+    print!("{:?}", Game) printar ett fint bräde och alla legal moves
 
 
