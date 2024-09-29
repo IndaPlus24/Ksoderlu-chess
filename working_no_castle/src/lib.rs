@@ -766,6 +766,25 @@ impl Game {
         moves
     }
 
+    pub fn get_board_as_option_vec(&self) -> Vec<Option<(bool, PieceType)>> { //Svart är sann. None är tom ruta
+        let mut v = Vec::with_capacity(64);
+
+        for index in 0..64 {
+
+            if self.board.square_to_piece(1 << index) != PieceType::Null {
+
+                v.push(Some({(
+                    if self.board.white_pieces & (1 << index) != 0 {false} else {true},
+                    self.board.square_to_piece(1 << index)
+                )}));
+            }
+            else {
+                v.push(None);
+            }
+        }
+        v
+    }
+
     pub fn is_game_over(&self) -> Option<String> { //Igga den här funktionen asså. så jävla dum. Kan typ bara användas i setup wizard
         match self.game_state {
             GameState::Check(_) => None,
@@ -905,7 +924,7 @@ mod tests {
     }
 
     #[test]
-    fn fen_code() { //Om jag hade castling hade den här inte funkat. Samma för en passant
+    fn fen_code() {
 
         let b_new = Board::new();
         let b_fen = Board::from_FEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1".chars().collect());
@@ -972,7 +991,7 @@ mod tests {
         game.make_move(&String::from("e1g1"));
         assert_eq!(game.board.kings & str_to_square("g1") != 0 , true); //kollar om det finns en kung på g2
 
-        println!("{:?}{}", game, game.board.is_check());
+        println!("{:?}{}", game, game.board.is_check()); //Alla legal moves försvinner och jag vet ej varför
 
         game.make_move(&String::from("d8d6"));
 
