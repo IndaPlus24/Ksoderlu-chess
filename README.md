@@ -22,4 +22,5 @@ Info om spelet
 
     print!("{:?}", Game) printar ett fint bräde och alla legal moves
 
+    Game.make_move(&String) ger en option som innehåller en GameState. Ogiltiga drag ger None.
 

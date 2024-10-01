@@ -35,20 +35,20 @@ pub struct Board {
     pub white_pieces : u64,
     pub black_pieces : u64,
 
-    kings : u64,
-    knights : u64,
-    rooks : u64,
-    bishops : u64,
-    queens : u64,
-    pawns : u64,
-    en_passant : u64,
+    pub kings : u64,
+    pub knights : u64,
+    pub rooks : u64,
+    pub bishops : u64,
+    pub queens : u64,
+    pub pawns : u64,
+    pub en_passant : u64,
 
-    castling_rights : u64,
+    pub castling_rights : u64,
 
-    turn : bool,
+    pub turn : bool,
 
     //Den här borde inte heta illegal moves utan det är alla rutor som pjäsen på en ruta attackerar oavsett färg
-    illegal_moves : [u64; 64],
+    pub illegal_moves : [u64; 64],
 }
 
 static COLUMN_H  : u64 = 0b10000000_10000000_10000000_10000000_10000000_10000000_10000000_10000000;
@@ -769,7 +769,7 @@ impl Game {
     pub fn get_board_as_option_vec(&self) -> Vec<Option<(bool, PieceType)>> { //Svart är sann. None är tom ruta
         let mut v = Vec::with_capacity(64);
 
-        for index in 0..64 {
+        for index in 0..64 {        //Från a1 till h1, sen a2 till h2 osv
 
             if self.board.square_to_piece(1 << index) != PieceType::Null {
 
@@ -785,7 +785,7 @@ impl Game {
         v
     }
 
-    pub fn is_game_over(&self) -> Option<String> { //Igga den här funktionen asså. så jävla dum. Kan typ bara användas i setup wizard
+    fn is_game_over(&self) -> Option<String> { //Igga den här funktionen asså. så jävla dum. Kan typ bara användas i setup wizard
         match self.game_state {
             GameState::Check(_) => None,
             GameState::InProgress => None,
